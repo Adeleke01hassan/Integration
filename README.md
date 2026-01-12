@@ -7,7 +7,7 @@ You can paste it directly into your repository.
 
 ---
 
-# **Graph‑Based Email Ingestion & Phishing Detection Service**  
+# ** Graph‑Based Email Ingestion & Phishing Detection Service **  
 ### *FastAPI • Microsoft Graph • GCP Cloud Run • Docker • OAuth2 • SIEM Integration*
 
 ---
