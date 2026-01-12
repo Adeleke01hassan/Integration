@@ -7,12 +7,12 @@ You can paste it directly into your repository.
 
 ---
 
-# ** Graph‑Based Email Ingestion & Phishing Detection Service **  
+# Graph‑Based Email Ingestion & Phishing Detection Service  
 ### *FastAPI • Microsoft Graph • GCP Cloud Run • Docker • OAuth2 • SIEM Integration*
 
 ---
 
-## **📌 Overview**
+## Overview
 
 This service ingests emails from **Exchange Online** and **Hybrid Exchange Server** using **Microsoft Graph API**, analyzes them for phishing using an AI/ML model, and sends alerts to SIEM or other security repositories. It supports both **scheduled batch scanning** and **real‑time webhook ingestion**, and is deployed as a **containerized FastAPI application on Google Cloud Run**.
 
@@ -29,9 +29,9 @@ This repository includes:
 
 ---
 
-## ** Features**
+## Features
 
-### **Email Ingestion**
+### Email Ingestion
 - Pulls emails from Exchange Online / Hybrid Exchange via Microsoft Graph.
 - Supports:
   - **All mailboxes**
@@ -40,7 +40,7 @@ This repository includes:
 - Incremental ingestion using **delta queries**.
 - Real‑time ingestion using **Graph subscriptions**.
 
-### **Phishing Detection**
+### Phishing Detection
 - AI/ML model analyzes:
   - Headers
   - Body content
@@ -51,25 +51,25 @@ This repository includes:
   - `label` (phishing / suspicious / benign)
   - `reasons`
 
-### **Remediation**
+### Remediation
 - Optional quarantine via Graph (`Mail.ReadWrite`).
 - Alerting to SIEM or HTTP endpoints.
 - Reporting via `/scan` results.
 
-### **Deployment**
+### Deployment
 - Dockerized FastAPI app.
 - Runs on **Google Cloud Run**.
 - CI/CD via **GitHub Actions**.
 - Secrets stored in **GCP Secret Manager**.
 
-### **Observability**
+### Observability
 - Structured JSON logging.
 - Error handling with retries/backoff.
 - Health endpoint for uptime monitoring.
 
 ---
 
-## ** Architecture**
+## Architecture
 
 ```
 Exchange Online / Hybrid Exchange
@@ -95,7 +95,7 @@ Cron     Webhook     Manual
 
 ---
 
-## ** Project Structure**
+## Project Structure
 
 ```
 graph-phishing-service/
@@ -122,7 +122,7 @@ graph-phishing-service/
 
 ---
 
-## ** Authentication (Microsoft Graph)**
+## Authentication (Microsoft Graph)
 
 This service uses **OAuth2 client credentials** with Microsoft Entra ID.
 
@@ -139,7 +139,7 @@ POST https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token
 
 ---
 
-## ** Configuration**
+## Configuration
 
 All configuration is handled via environment variables (preferably from GCP Secret Manager).
 
@@ -155,21 +155,21 @@ All configuration is handled via environment variables (preferably from GCP Secr
 
 ---
 
-## ** Running Locally**
+## Running Locally
 
-### **1. Install dependencies**
+### 1. Install dependencies
 
 ```
 pip install -r requirements.txt
 ```
 
-### **2. Run FastAPI**
+### 2. Run FastAPI
 
 ```
 uvicorn app.main:app --reload
 ```
 
-### **3. Test health endpoint**
+### 3. Test health endpoint
 
 ```
 curl http://localhost:8000/health
@@ -177,15 +177,15 @@ curl http://localhost:8000/health
 
 ---
 
-## ** Docker**
+## Docker
 
-### **Build**
+### Build
 
 ```
 docker build -t graph-phishing-service .
 ```
 
-### **Run**
+### Run
 
 ```
 docker run -p 8080:8080 graph-phishing-service
@@ -193,15 +193,15 @@ docker run -p 8080:8080 graph-phishing-service
 
 ---
 
-## ** Deploying to Cloud Run**
+## Deploying to Cloud Run
 
-### **Build & push image**
+### Build & push image
 
 ```
 gcloud builds submit --tag gcr.io/PROJECT_ID/graph-phishing-service
 ```
 
-### **Deploy**
+### Deploy
 
 ```
 gcloud run deploy graph-phishing-service \
@@ -213,7 +213,7 @@ gcloud run deploy graph-phishing-service \
 
 ---
 
-## ** Scheduled Scanning (Cron)**
+## Scheduled Scanning (Cron)
 
 Use **Cloud Scheduler** to POST to:
 
@@ -228,7 +228,7 @@ Example schedule:
 
 ---
 
-## ** Real-Time Webhooks**
+## Real-Time Webhooks
 
 Create subscriptions via:
 
@@ -251,7 +251,7 @@ Webhook flow:
 
 ---
 
-## ** Phishing Detection Model**
+## Phishing Detection Model
 
 Starter model uses:
 
@@ -279,7 +279,7 @@ You can replace this with:
 
 ---
 
-## ** Remediation**
+## Remediation
 
 If `Mail.ReadWrite` is enabled, the service can:
 
@@ -295,23 +295,23 @@ await move_to_quarantine(user_id, message_id, quarantine_folder_id)
 
 ---
 
-## ** Observability**
+## Observability
 
-### **Logging**
+### Logging
 - Structured JSON logs
 - Includes:
   - Graph errors
   - Message processing stats
   - Alert counts
 
-### **Monitoring**
+### Monitoring
 - Cloud Monitoring dashboards
 - Logging-based metrics:
   - `emails_processed_total`
   - `alerts_raised_total`
   - `graph_errors_total`
 
-### **Alerting**
+### Alerting
 - Trigger alerts when:
   - No scans succeed within X minutes
   - Webhook failures spike
@@ -319,7 +319,7 @@ await move_to_quarantine(user_id, message_id, quarantine_folder_id)
 
 ---
 
-## ** Testing**
+## Testing
 
 Run tests:
 
@@ -329,7 +329,7 @@ pytest
 
 ---
 
-## ** CI/CD (GitHub Actions)**
+## CI/CD (GitHub Actions)
 
 Included workflow:
 
